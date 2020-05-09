@@ -53,3 +53,7 @@ declare module "../web_modules/three.js" {
 declare module "../../web_modules/three.js" {
   declare module.exports: any;
 }
+
+declare module "../web_modules/screenfull.js" {
+  declare module.exports: any;
+}
