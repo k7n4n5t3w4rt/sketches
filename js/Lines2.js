@@ -81,36 +81,44 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
             // Doesn't work on iPhone ~ https://caniuse.com/#feat=fullscreen
             // Plus we only want fullscreen on touch devices
             screenfull.request().then(() /*: void */ => {
-              if (document.body !== null) {
-                document.body.style.height = window.innerHeight + "px";
-                if (
-                  document.body.parentElement !== null &&
-                  typeof document.body.parentElement !== "undefined"
-                ) {
-                  // $FlowFixMe
-                  document.body.parentElement.style.height =
-                    window.innerHeight + "px";
-                }
-              }
-              if (document.getElementById("lines1") !== null) {
-                // $FlowFixMe
-                document.getElementById("lines1").style.width =
-                  window.innerWidth + "px";
-                // $FlowFixMe
-                document.getElementById("lines1").style.height =
-                  window.innerHeight + "px";
-              }
-              const camera = setUpCamera(window.innerWidth, window.innerHeight);
-              renderer.setSize(window.innerWidth, window.innerHeight);
-              if (renderElement !== null) {
-                // Clear the scene - totally
-                while (renderElement.firstChild) {
-                  renderElement.removeChild(renderElement.firstChild);
-                }
-                // ...and attach a fresh one
-                renderElement.appendChild(renderer.domElement);
-              }
-              renderer.render(scene, camera);
+              setTimeout(
+                () /*: void */ => {
+                  if (document.body !== null) {
+                    document.body.style.height = window.innerHeight + "px";
+                    if (
+                      document.body.parentElement !== null &&
+                      typeof document.body.parentElement !== "undefined"
+                    ) {
+                      // $FlowFixMe
+                      document.body.parentElement.style.height =
+                        window.innerHeight + "px";
+                    }
+                  }
+                  if (document.getElementById("lines1") !== null) {
+                    // $FlowFixMe
+                    document.getElementById("lines1").style.width =
+                      window.innerWidth + "px";
+                    // $FlowFixMe
+                    document.getElementById("lines1").style.height =
+                      window.innerHeight + "px";
+                  }
+                  const camera = setUpCamera(
+                    window.innerWidth,
+                    window.innerHeight,
+                  );
+                  renderer.setSize(window.innerWidth, window.innerHeight);
+                  if (renderElement !== null) {
+                    // Clear the scene - totally
+                    while (renderElement.firstChild) {
+                      renderElement.removeChild(renderElement.firstChild);
+                    }
+                    // ...and attach a fresh one
+                    renderElement.appendChild(renderer.domElement);
+                  }
+                  renderer.render(scene, camera);
+                },
+                500,
+              );
             });
           },
           { once: true },
