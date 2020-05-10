@@ -42,6 +42,7 @@ type Props = {
 const Lines1 = (props /*: Props */) /*: HtmType */ => {
   useEffect(() => {
     const renderer = new THREE.WebGLRenderer();
+    console.log(window.innerWidth, window.innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const renderElement = document.getElementById("container") || null;
@@ -88,7 +89,7 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
             screenfull.request();
 
             setTimeout(() => {
-              renderer.setSize(window.innerWidth, window.innerHeight);
+              renderer.setSize(window.outerWidth, window.outerHeight);
               const camera = new THREE.PerspectiveCamera(
                 45,
                 window.innerWidth / window.innerHeight,
@@ -101,10 +102,11 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
                 while (renderElement.firstChild) {
                   renderElement.removeChild(renderElement.firstChild);
                 }
+                console.log(window.outerWidth, window.outerHeight);
                 renderElement.appendChild(renderer.domElement);
               }
               renderer.render(scene, camera);
-            });
+            }, 500);
           },
           { once: true },
         );
