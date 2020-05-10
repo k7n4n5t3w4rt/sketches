@@ -105,6 +105,16 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
             screenfull.request();
 
             setTimeout(() => {
+              // $FlowFixMe
+              document.body.style.height = window.innerHeight + "px";
+              // $FlowFixMe
+              document.body.parentNode.style.height = window.innerHeight + "px";
+              // $FlowFixMe
+              document.getElementById("container").style.height =
+                window.innerHeight + "px";
+              // $FlowFixMe
+              document.getElementById("lines2").style.height =
+                window.innerHeight + "px";
               renderer.setSize(window.innerWidth, window.innerHeight);
               const camera = new THREE.PerspectiveCamera(
                 45,
