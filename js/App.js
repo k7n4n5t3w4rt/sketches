@@ -2,10 +2,11 @@
 import { h, render } from "../web_modules/preact.js";
 import htm from "../web_modules/htm.js";
 import { createStyles } from "../web_modules/simplestyle-js.js";
-import Lines_1 from "./Lines_1.js";
 import Router from "../web_modules/preact-router.js";
 import { createHashHistory } from "../web_modules/history.js";
 import { createBrowserHistory } from "../web_modules/history.js";
+import Lines1 from "./Lines1.js";
+import Lines2 from "./Lines2.js";
 
 // Flow
 /*::
@@ -14,7 +15,8 @@ import typeof { createBrowserHistory as CreateBrowserHistoryType } from '../web_
 import typeof { createStyles as CreateStylesType } from "../web_modules/simplestyle-js.js";
 import typeof RouterType from "../web_modules/preact-router.js";
 import typeof HtmType from "../web_modules/htm.js";
-import typeof Lines_1Type from "./Lines_1.js";
+import typeof Lines1Type from "./Lines1.js";
+import typeof Lines2Type from "./Lines2.js";
 import typeof {
   h as HType,
   render as RenderType,
@@ -31,8 +33,8 @@ type Props = {
 const App /*: function */ = (props /*: Props */) /*: HtmType */ => {
   return html`
     <${Router} url="${props.url}">
-      <${Lines_1} count="0" path="/" />
-      <${Lines_1} count="0" path="/lines_1" />
+      <${Lines1} path="/" />
+      <${Lines1} path="/lines1" />
     </${Router}>
   `;
 };

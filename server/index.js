@@ -78,10 +78,7 @@ const requestHandler = (req, res) => {
 };
 
 const renderToString = (url /*: string */) /*: string */ => {
-  const index /*: string */ = fs.readFileSync(
-    "./server/index_template.html",
-    "utf8",
-  );
+  const index /*: string */ = fs.readFileSync("./index.html", "utf8");
   // [1] Swap the placeholder copy with the rendered output
   let renderedContent = index.replace(
     /<\!-- GOODTHING -->/g,
