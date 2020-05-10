@@ -22,19 +22,3 @@ hydrate(
   `,
   document.getElementById("goodthing"),
 );
-
-// Doesn't work on iPhone ~ https://caniuse.com/#feat=fullscreen
-// Plus we only want fullscreen on touch devices
-// $FlowFixMe
-if (Modernizr.hasEvent("touchend") && screenfull.isEnabled) {
-  const mainContainer = document.getElementById("goodthing") || null;
-  if (mainContainer !== null) {
-    mainContainer.addEventListener(
-      "touchend",
-      () => {
-        screenfull.request();
-      },
-      { once: true },
-    );
-  }
-}
