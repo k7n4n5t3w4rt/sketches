@@ -52,7 +52,7 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    const renderElement = document.getElementById("container") || null;
+    const renderElement = document.getElementById("lines2") || null;
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -150,7 +150,7 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
   // console.log(props.count.isInteger());
   return html`
     <div id="container" className="${styles.container}">
-      <div id="lines1" className="${styles.lines1}"></div>
+      <div id="lines2" className="${styles.lines2}"></div>
     </div>
   `;
 };

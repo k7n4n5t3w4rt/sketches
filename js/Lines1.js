@@ -46,40 +46,22 @@ type Props = {
 */
 const Lines1 = (props /*: Props */) /*: HtmType */ => {
   useEffect(() => {
-    const renderer = new THREE.WebGLRenderer();
-    console.log(window.innerWidth, window.innerHeight);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    const renderElement = document.getElementById("container") || null;
-
-    const camera = new THREE.PerspectiveCamera(
-      45,
-      window.innerWidth / window.innerHeight,
-      1,
-      500,
-    );
-    camera.position.set(0, 0, 100);
-    camera.lookAt(0, 0, 0);
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color("white");
-    const material = new THREE.LineBasicMaterial({ color: 0x222222 });
+    const camera = setUpCamera(window.innerWidth, window.innerHeight);
     const vectorPoints = points(0, 0, 10);
-    const geometry = new THREE.BufferGeometry().setFromPoints(vectorPoints);
-    const line = new THREE.Line(geometry, material);
-    scene.add(line);
-
+    const line = setUpLine(vectorPoints);
+    const scene = setUpScene(line);
+    const renderer = setUpRenderer(window.innerWidth, window.innerHeight);
+    const renderElement = document.getElementById("lines1") || null;
     if (renderElement !== null) {
       renderElement.appendChild(renderer.domElement);
       renderer.render(scene, camera);
+    } else {
+      throw new Error(
+        "There is a problem rendering the scene - div#lines doesn't exist",
+      );
     }
 
-    const update = () /*: void */ => {
-      const vectorPoints = points(0, 0, 10);
-      line.geometry.setFromPoints(vectorPoints);
-      line.geometry.attributes.position.needsUpdate = true;
-      renderer.render(scene, camera);
-    };
-
+    // Events
     const mainContainer = document.getElementById("goodthing") || null;
     if (mainContainer !== null) {
       // Modernizr doesn't have an es module npm package so it's
@@ -91,53 +73,96 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
           () => {
             // Doesn't work on iPhone ~ https://caniuse.com/#feat=fullscreen
             // Plus we only want fullscreen on touch devices
-            screenfull.request();
+            screenfull.request().then(() /*: void */ => {
+              if (document.body !== null) {
+                document.body.style.height = window.innerHeight + "px";
+                if (
+                  document.body.parentElement !== null &&
+                  typeof document.body.parentElement !== "undefined"
+                ) {
+                  // $FlowFixMe
+                  document.body.parentElement.style.height =
+                    window.innerHeight + "px";
+                }
+              }
 
-            setTimeout(() => {
-              // $FlowFixMe
-              document.body.style.height = window.innerHeight + "px";
-              // $FlowFixMe
-              document.body.parentNode.style.height = window.innerHeight + "px";
-              // $FlowFixMe
-              document.getElementById("container").style.height =
-                window.innerHeight + "px";
-              // $FlowFixMe
-              document.getElementById("lines1").style.height =
-                window.innerHeight + "px";
-              renderer.setSize(window.outerWidth, window.outerHeight);
-              const camera = new THREE.PerspectiveCamera(
-                45,
-                window.innerWidth / window.innerHeight,
-                1,
-                500,
-              );
-              camera.position.set(0, 0, 100);
-              camera.lookAt(0, 0, 0);
+              if (document.getElementById("lines1") !== null) {
+                // $FlowFixMe
+                document.getElementById("lines1").style.width =
+                  window.innerWidth + "px";
+                // $FlowFixMe
+                document.getElementById("lines1").style.height =
+                  window.innerHeight + "px";
+              }
+              const camera = setUpCamera(window.innerWidth, window.innerHeight);
+              renderer.setSize(window.innerWidth, window.innerHeight);
               if (renderElement !== null) {
+                // Clear the scene - totally
                 while (renderElement.firstChild) {
                   renderElement.removeChild(renderElement.firstChild);
                 }
-                console.log(window.outerWidth, window.outerHeight);
+                // ...and attach a fresh one
                 renderElement.appendChild(renderer.domElement);
               }
               renderer.render(scene, camera);
-            }, 500);
+            });
           },
           { once: true },
         );
         mainContainer.addEventListener("touchend", () => {
-          update();
+          const vectorPoints = points(0, 0, 10);
+          line.geometry.setFromPoints(vectorPoints);
+          line.geometry.attributes.position.needsUpdate = true;
+          renderer.render(scene, camera);
         });
       } else {
         mainContainer.addEventListener("mouseup", () => {
-          update();
+          const vectorPoints = points(0, 0, 10);
+          line.geometry.setFromPoints(vectorPoints);
+          line.geometry.attributes.position.needsUpdate = true;
+          renderer.render(scene, camera);
         });
       }
     }
   });
 
-  const [count, setCount] = useState(parseInt(props.count));
-  // console.log(props.count.isInteger());
+  // Camera
+  const setUpCamera = (
+    width /*: number */,
+    height /*: number */,
+  ) /*: Object */ => {
+    const camera = new THREE.PerspectiveCamera(45, width / height, 1, 500);
+    camera.position.set(0, 0, 100);
+    camera.lookAt(0, 0, 0);
+    return camera;
+  };
+
+  // Line
+  const setUpLine = (vectorPoints /*: Array<Object> */) /*: Object */ => {
+    const material = new THREE.LineBasicMaterial({ color: 0x222222 });
+    const geometry = new THREE.BufferGeometry().setFromPoints(vectorPoints);
+    const line = new THREE.Line(geometry, material);
+    return line;
+  };
+
+  // Scene
+  const setUpScene = (line /*: Object */) /*: Object */ => {
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("white");
+    scene.add(line);
+    return scene;
+  };
+
+  // Renderer
+  const setUpRenderer = (
+    width /*: number */,
+    height /*: number */,
+  ) /*: Object */ => {
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(width, height);
+    return renderer;
+  };
+
   return html`
     <div id="container" className="${styles.container}">
       <div id="lines1" className="${styles.lines1}"></div>
