@@ -25,6 +25,11 @@ import typeof {
 const html /*: HtmType */ = htm.bind(h);
 const [styles] /*: CreateStylesType */ = createStyles(
   {
+    container: {
+      width: "100%",
+      height: "100%",
+      backgroundColor: "gold",
+    },
     lines1: {
       width: "100%",
       height: "100%",
