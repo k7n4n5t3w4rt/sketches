@@ -83,25 +83,25 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
             screenfull.request().then(() /*: void */ => {
               setTimeout(
                 () /*: void */ => {
-                  if (document.body !== null) {
-                    document.body.style.height = window.innerHeight + "px";
-                    if (
-                      document.body.parentElement !== null &&
-                      typeof document.body.parentElement !== "undefined"
-                    ) {
-                      // $FlowFixMe
-                      document.body.parentElement.style.height =
-                        window.innerHeight + "px";
-                    }
-                  }
-                  if (document.getElementById("lines1") !== null) {
-                    // $FlowFixMe
-                    document.getElementById("lines1").style.width =
-                      window.innerWidth + "px";
-                    // $FlowFixMe
-                    document.getElementById("lines1").style.height =
-                      window.innerHeight + "px";
-                  }
+                  // if (document.body !== null) {
+                  //   document.body.style.height = window.innerHeight + "px";
+                  //   if (
+                  //     document.body.parentElement !== null &&
+                  //     typeof document.body.parentElement !== "undefined"
+                  //   ) {
+                  //     // $FlowFixMe
+                  //     document.body.parentElement.style.height =
+                  //       window.innerHeight + "px";
+                  //   }
+                  // }
+                  // if (document.getElementById("lines1") !== null) {
+                  //   // $FlowFixMe
+                  //   document.getElementById("lines1").style.width =
+                  //     window.innerWidth + "px";
+                  //   // $FlowFixMe
+                  //   document.getElementById("lines1").style.height =
+                  //     window.innerHeight + "px";
+                  // }
                   const camera = setUpCamera(
                     window.innerWidth,
                     window.innerHeight,
