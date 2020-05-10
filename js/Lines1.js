@@ -86,6 +86,9 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
             // Doesn't work on iPhone ~ https://caniuse.com/#feat=fullscreen
             // Plus we only want fullscreen on touch devices
             screenfull.request();
+
+            alert("RESIZING");
+
             renderer.setSize(window.innerWidth, window.innerHeight);
             const camera = new THREE.PerspectiveCamera(
               45,
