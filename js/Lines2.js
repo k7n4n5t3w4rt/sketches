@@ -23,24 +23,15 @@ import typeof {
 */
 
 const html /*: HtmType */ = htm.bind(h);
-rawStyles({
-  html: {},
-  body: {},
-});
-
 const [styles] /*: CreateStylesType */ = createStyles(
   {
-    container: {
-      width: "100%",
-      height: "100%",
-    },
-    lines2: {
+    lines1: {
       width: "100%",
       height: "100%",
     },
   },
   null,
-  "iouyoiuyoiuy",
+  "kljhyoiweut",
 );
 
 /*::
@@ -48,12 +39,15 @@ type Props = {
   count: typeof Number
 };
 */
-const Mother = (props /*: Props */) /*: HtmType */ => {
+const Lines1 = (props /*: Props */) /*: HtmType */ => {
   useEffect(() => {
+    const MAXLINES = 100;
+    const POINTS_PER_LINE = 10;
+
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    const renderElement = document.getElementById("mother") || null;
+    const renderElement = document.getElementById("container") || null;
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -63,43 +57,59 @@ const Mother = (props /*: Props */) /*: HtmType */ => {
     );
     camera.position.set(0, 0, 100);
     camera.lookAt(0, 0, 0);
-
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color("grey");
-
-    //create a blue LineBasicMaterial
+    scene.background = new THREE.Color("white");
     const material = new THREE.LineBasicMaterial({ color: 0x222222 });
 
-    const vectorPoints = points(0, 0, 10);
-
-    const geometry = new THREE.BufferGeometry().setFromPoints(vectorPoints);
-
-    const line = new THREE.Line(geometry, material);
-
-    scene.add(line);
-
+    let vectorPoints /*: Object */;
+    let geometry /*: Object */;
+    let line /*: Object */;
+    const lines = [];
+    for (let i = 0; i < MAXLINES; i++) {
+      vectorPoints = points(0, 0, POINTS_PER_LINE);
+      geometry = new THREE.BufferGeometry().setFromPoints(vectorPoints);
+      line = new THREE.Line(geometry, material);
+      scene.add(line);
+      // Store for later
+      lines[i] = line;
+    }
     if (renderElement !== null) {
       renderElement.appendChild(renderer.domElement);
       renderer.render(scene, camera);
     }
+    const update = () /*: void */ => {
+      lines.forEach((line /*: Object */) /*: void */ => {
+        const vectorPoints = points(0, 0, POINTS_PER_LINE);
+        line.geometry.setFromPoints(vectorPoints);
+        line.geometry.attributes.position.needsUpdate = true;
+      });
+      renderer.render(scene, camera);
+    };
 
-    setInterval(
-      () /*: void */ => {
-        const vectorPoints = points(0, 0, 10);
-        const geometry = new THREE.BufferGeometry().setFromPoints(vectorPoints);
-        console.log(line);
-      },
-      1000,
-    );
+    const mainContainer = document.getElementById("goodthing") || null;
+    if (mainContainer !== null) {
+      // Modernizr doesn't have an es module npm package so it's
+      // imported with a <script> tag in `index.html`
+      // $FlowFixMe
+      if (Modernizr.hasEvent("touchend")) {
+        mainContainer.addEventListener("touchend", () => {
+          update();
+        });
+      } else {
+        mainContainer.addEventListener("mouseup", () => {
+          update();
+        });
+      }
+    }
   });
 
   const [count, setCount] = useState(parseInt(props.count));
   // console.log(props.count.isInteger());
   return html`
     <div id="container" className="${styles.container}">
-      <div id="lines2" className="${styles.lines2}"></div>
+      <div id="lines1" className="${styles.lines1}"></div>
     </div>
   `;
 };
 
-export default Mother;
+export default Lines1;

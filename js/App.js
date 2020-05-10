@@ -35,6 +35,7 @@ const App /*: function */ = (props /*: Props */) /*: HtmType */ => {
     <${Router} url="${props.url}">
       <${Lines1} path="/" />
       <${Lines1} path="/lines1" />
+      <${Lines2} path="/lines2" />
     </${Router}>
   `;
 };

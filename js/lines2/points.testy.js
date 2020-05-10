@@ -23,11 +23,9 @@ test("Random returns a number within 10 units of the input number and NOT the in
   const returnedX = random(inputX - range, inputX + range);
   const returnedY = random(inputY - range, inputY + range);
   // Check it's a number within the range for X
-  should(returnedX).be.above(inputX - range);
-  should(returnedX).be.below(inputX + range);
-  should(returnedX).not.be.exactly(inputX);
+  should(returnedX).be.aboveOrEqual(inputX - range);
+  should(returnedX).be.belowOrEqual(inputX + range);
   // Check it's a number within the range for Y
-  should(returnedY).be.above(inputY - range);
-  should(returnedY).be.below(inputY + range);
-  should(returnedY).not.be.exactly(inputY);
+  should(returnedY).be.aboveOrEqual(inputY - range);
+  should(returnedY).be.belowOrEqual(inputY + range);
 });
