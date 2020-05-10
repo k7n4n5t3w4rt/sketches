@@ -87,8 +87,6 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
             // Plus we only want fullscreen on touch devices
             screenfull.request();
 
-            alert("RESIZING");
-
             renderer.setSize(window.innerWidth, window.innerHeight);
             const camera = new THREE.PerspectiveCamera(
               45,
