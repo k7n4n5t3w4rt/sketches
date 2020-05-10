@@ -31,7 +31,7 @@ const [styles] /*: CreateStylesType */ = createStyles(
     container: {
       width: "100%",
       height: "100%",
-      backgroundColor: "gold",
+      backgroundColor: "white",
     },
     [TARGET]: {
       width: "100%",
