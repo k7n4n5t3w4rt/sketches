@@ -99,15 +99,24 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
             // Plus we only want fullscreen on touch devices
             screenfull.request();
 
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            const camera = new THREE.PerspectiveCamera(
-              45,
-              window.innerWidth / window.innerHeight,
-              1,
-              500,
-            );
-            camera.position.set(0, 0, 100);
-            camera.lookAt(0, 0, 0);
+            setTimeout(() => {
+              renderer.setSize(window.innerWidth, window.innerHeight);
+              const camera = new THREE.PerspectiveCamera(
+                45,
+                window.innerWidth / window.innerHeight,
+                1,
+                500,
+              );
+              camera.position.set(0, 0, 100);
+              camera.lookAt(0, 0, 0);
+              if (renderElement !== null) {
+                while (renderElement.firstChild) {
+                  renderElement.removeChild(renderElement.firstChild);
+                }
+                renderElement.appendChild(renderer.domElement);
+              }
+              renderer.render(scene, camera);
+            });
           },
           { once: true },
         );
