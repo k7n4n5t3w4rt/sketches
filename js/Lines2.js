@@ -131,7 +131,7 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
                 renderElement.appendChild(renderer.domElement);
               }
               renderer.render(scene, camera);
-            });
+            }, 500);
           },
           { once: true },
         );
