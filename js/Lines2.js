@@ -22,6 +22,9 @@ import typeof {
 } from "../web_modules/preact.js";
 */
 
+const POINTS_PER_LINE = 10;
+const TARGET = "lines2";
+
 const html /*: HtmType */ = htm.bind(h);
 const [styles] /*: CreateStylesType */ = createStyles(
   {
@@ -30,7 +33,7 @@ const [styles] /*: CreateStylesType */ = createStyles(
       height: "100%",
       backgroundColor: "gold",
     },
-    lines2: {
+    [TARGET]: {
       width: "100%",
       height: "100%",
     },
@@ -44,53 +47,28 @@ type Props = {
   count: typeof Number
 };
 */
-const Lines1 = (props /*: Props */) /*: HtmType */ => {
+const Lines = (props /*: Props */) /*: HtmType */ => {
   useEffect(() => {
-    const MAXLINES = 100;
-    const POINTS_PER_LINE = 10;
-
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    const renderElement = document.getElementById("lines2") || null;
-
-    const camera = new THREE.PerspectiveCamera(
-      45,
-      window.innerWidth / window.innerHeight,
-      1,
-      500,
-    );
-    camera.position.set(0, 0, 100);
-    camera.lookAt(0, 0, 0);
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color("white");
-    const material = new THREE.LineBasicMaterial({ color: 0x222222 });
-
-    let vectorPoints /*: Object */;
-    let geometry /*: Object */;
-    let line /*: Object */;
+    const camera = setUpCamera(window.innerWidth, window.innerHeight);
+    const scene = setUpScene();
     const lines = [];
-    for (let i = 0; i < MAXLINES; i++) {
-      vectorPoints = points(0, 0, POINTS_PER_LINE);
-      geometry = new THREE.BufferGeometry().setFromPoints(vectorPoints);
-      line = new THREE.Line(geometry, material);
-      scene.add(line);
-      // Store for later
-      lines[i] = line;
+    for (let i = 0; i < 100; i++) {
+      const vectorPoints = points(0, 0, POINTS_PER_LINE);
+      lines[i] = setUpLine(vectorPoints);
+      scene.add(lines[i]);
     }
+    const renderer = setUpRenderer(window.innerWidth, window.innerHeight);
+    const renderElement = document.getElementById(TARGET) || null;
     if (renderElement !== null) {
       renderElement.appendChild(renderer.domElement);
       renderer.render(scene, camera);
+    } else {
+      throw new Error(
+        `There is a problem rendering the scene - div#${TARGET} doesn't exist`,
+      );
     }
-    const update = () /*: void */ => {
-      lines.forEach((line /*: Object */) /*: void */ => {
-        const vectorPoints = points(0, 0, POINTS_PER_LINE);
-        line.geometry.setFromPoints(vectorPoints);
-        line.geometry.attributes.position.needsUpdate = true;
-      });
-      renderer.render(scene, camera);
-    };
 
+    // Events
     const mainContainer = document.getElementById("goodthing") || null;
     if (mainContainer !== null) {
       // Modernizr doesn't have an es module npm package so it's
@@ -102,57 +80,104 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
           () => {
             // Doesn't work on iPhone ~ https://caniuse.com/#feat=fullscreen
             // Plus we only want fullscreen on touch devices
-            screenfull.request();
-
-            setTimeout(() => {
-              // $FlowFixMe
-              document.body.style.height = window.innerHeight + "px";
-              // $FlowFixMe
-              document.body.parentNode.style.height = window.innerHeight + "px";
-              // $FlowFixMe
-              document.getElementById("container").style.height =
-                window.innerHeight + "px";
-              // $FlowFixMe
-              document.getElementById("lines2").style.height =
-                window.innerHeight + "px";
+            screenfull.request().then(() /*: void */ => {
+              if (document.body !== null) {
+                document.body.style.height = window.innerHeight + "px";
+                if (
+                  document.body.parentElement !== null &&
+                  typeof document.body.parentElement !== "undefined"
+                ) {
+                  // $FlowFixMe
+                  document.body.parentElement.style.height =
+                    window.innerHeight + "px";
+                }
+              }
+              if (document.getElementById("lines1") !== null) {
+                // $FlowFixMe
+                document.getElementById("lines1").style.width =
+                  window.innerWidth + "px";
+                // $FlowFixMe
+                document.getElementById("lines1").style.height =
+                  window.innerHeight + "px";
+              }
+              const camera = setUpCamera(window.innerWidth, window.innerHeight);
               renderer.setSize(window.innerWidth, window.innerHeight);
-              const camera = new THREE.PerspectiveCamera(
-                45,
-                window.innerWidth / window.innerHeight,
-                1,
-                500,
-              );
-              camera.position.set(0, 0, 100);
-              camera.lookAt(0, 0, 0);
               if (renderElement !== null) {
+                // Clear the scene - totally
                 while (renderElement.firstChild) {
                   renderElement.removeChild(renderElement.firstChild);
                 }
+                // ...and attach a fresh one
                 renderElement.appendChild(renderer.domElement);
               }
               renderer.render(scene, camera);
-            }, 500);
+            });
           },
           { once: true },
         );
         mainContainer.addEventListener("touchend", () => {
-          update();
+          lines.forEach((line /* Object */) /*: void */ => {
+            const vectorPoints = points(0, 0, POINTS_PER_LINE);
+            line.geometry.setFromPoints(vectorPoints);
+            line.geometry.attributes.position.needsUpdate = true;
+          });
+          renderer.render(scene, camera);
         });
       } else {
         mainContainer.addEventListener("mouseup", () => {
-          update();
+          const vectorPoints = points(0, 0, POINTS_PER_LINE);
+          lines.forEach((line /* Object */) /*: void */ => {
+            const vectorPoints = points(0, 0, POINTS_PER_LINE);
+            line.geometry.setFromPoints(vectorPoints);
+            line.geometry.attributes.position.needsUpdate = true;
+          });
+          renderer.render(scene, camera);
         });
       }
     }
   });
 
-  const [count, setCount] = useState(parseInt(props.count));
-  // console.log(props.count.isInteger());
+  // Camera
+  const setUpCamera = (
+    width /*: number */,
+    height /*: number */,
+  ) /*: Object */ => {
+    const camera = new THREE.PerspectiveCamera(45, width / height, 1, 500);
+    camera.position.set(0, 0, 100);
+    camera.lookAt(0, 0, 0);
+    return camera;
+  };
+
+  // Line
+  const setUpLine = (vectorPoints /*: Array<Object> */) /*: Object */ => {
+    const material = new THREE.LineBasicMaterial({ color: 0x222222 });
+    const geometry = new THREE.BufferGeometry().setFromPoints(vectorPoints);
+    const line = new THREE.Line(geometry, material);
+    return line;
+  };
+
+  // Scene
+  const setUpScene = () /*: Object */ => {
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("white");
+    return scene;
+  };
+
+  // Renderer
+  const setUpRenderer = (
+    width /*: number */,
+    height /*: number */,
+  ) /*: Object */ => {
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(width, height);
+    return renderer;
+  };
+
   return html`
     <div id="container" className="${styles.container}">
-      <div id="lines2" className="${styles.lines2}"></div>
+      <div id="${TARGET}" className="${styles[TARGET]}"></div>
     </div>
   `;
 };
 
-export default Lines1;
+export default Lines;

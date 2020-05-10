@@ -22,6 +22,9 @@ import typeof {
 } from "../web_modules/preact.js";
 */
 
+const POINTS_PER_LINE = 10;
+const TARGET = "lines1";
+
 const html /*: HtmType */ = htm.bind(h);
 const [styles] /*: CreateStylesType */ = createStyles(
   {
@@ -30,7 +33,7 @@ const [styles] /*: CreateStylesType */ = createStyles(
       height: "100%",
       backgroundColor: "gold",
     },
-    lines1: {
+    [TARGET]: {
       width: "100%",
       height: "100%",
     },
@@ -44,20 +47,20 @@ type Props = {
   count: typeof Number
 };
 */
-const Lines1 = (props /*: Props */) /*: HtmType */ => {
+const Lines = (props /*: Props */) /*: HtmType */ => {
   useEffect(() => {
     const camera = setUpCamera(window.innerWidth, window.innerHeight);
-    const vectorPoints = points(0, 0, 10);
+    const vectorPoints = points(0, 0, POINTS_PER_LINE);
     const line = setUpLine(vectorPoints);
     const scene = setUpScene(line);
     const renderer = setUpRenderer(window.innerWidth, window.innerHeight);
-    const renderElement = document.getElementById("lines1") || null;
+    const renderElement = document.getElementById(TARGET) || null;
     if (renderElement !== null) {
       renderElement.appendChild(renderer.domElement);
       renderer.render(scene, camera);
     } else {
       throw new Error(
-        "There is a problem rendering the scene - div#lines doesn't exist",
+        `There is a problem rendering the scene - div#${TARGET} doesn't exist`,
       );
     }
 
@@ -110,14 +113,14 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
           { once: true },
         );
         mainContainer.addEventListener("touchend", () => {
-          const vectorPoints = points(0, 0, 10);
+          const vectorPoints = points(0, 0, POINTS_PER_LINE);
           line.geometry.setFromPoints(vectorPoints);
           line.geometry.attributes.position.needsUpdate = true;
           renderer.render(scene, camera);
         });
       } else {
         mainContainer.addEventListener("mouseup", () => {
-          const vectorPoints = points(0, 0, 10);
+          const vectorPoints = points(0, 0, POINTS_PER_LINE);
           line.geometry.setFromPoints(vectorPoints);
           line.geometry.attributes.position.needsUpdate = true;
           renderer.render(scene, camera);
@@ -165,9 +168,9 @@ const Lines1 = (props /*: Props */) /*: HtmType */ => {
 
   return html`
     <div id="container" className="${styles.container}">
-      <div id="lines1" className="${styles.lines1}"></div>
+      <div id="${TARGET}" className="${styles[TARGET]}"></div>
     </div>
   `;
 };
 
-export default Lines1;
+export default Lines;
