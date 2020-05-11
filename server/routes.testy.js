@@ -15,6 +15,7 @@ const options /*: http$requestOptions */ = {
 };
 
 testPromise("Routes | Testing /", () => {
+  options.path = "/";
   return requestPromise(options)
     .then(({ res, body }) => {
       should(res.statusCode).be.exactly(200);
@@ -24,7 +25,30 @@ testPromise("Routes | Testing /", () => {
     });
 });
 
-testPromise("Routes | Testing /lines_1", () => {
+testPromise("Routes | Testing /lines1", () => {
+  options.path = "/lines1";
+  return requestPromise(options)
+    .then(({ res, body }) => {
+      should(res.statusCode).be.exactly(200);
+    })
+    .catch(e => {
+      throw e;
+    });
+});
+
+testPromise("Routes | Testing /lines2", () => {
+  options.path = "/lines2";
+  return requestPromise(options)
+    .then(({ res, body }) => {
+      should(res.statusCode).be.exactly(200);
+    })
+    .catch(e => {
+      throw e;
+    });
+});
+
+testPromise("Routes | Testing /lines3", () => {
+  options.path = "/lines3";
   return requestPromise(options)
     .then(({ res, body }) => {
       should(res.statusCode).be.exactly(200);
