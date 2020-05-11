@@ -175,6 +175,7 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
   ) /*: Object */ => {
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize((width * SCALE) | 0, (height * SCALE) | 0, false);
+    renderer.setPixelRatio(window.devicePixelRatio);
     return renderer;
   };
 
