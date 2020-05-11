@@ -22,10 +22,18 @@ import typeof {
 } from "../web_modules/preact.js";
 */
 
-const POINTS_PER_LINE = 10;
+const RANGE = 10;
+// const SCALE = window.devicePixelRatio;
+const SCALE = 1;
 const TARGET = "lines2";
 
 const html /*: HtmType */ = htm.bind(h);
+rawStyles({
+  canvas: {
+    width: "100%",
+    height: "100%",
+  },
+});
 const [styles] /*: CreateStylesType */ = createStyles(
   {
     container: {
@@ -53,74 +61,81 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
     const scene = setUpScene();
     const lines = [];
     for (let i = 0; i < 100; i++) {
-      const vectorPoints = points(0, 0, POINTS_PER_LINE);
+      const vectorPoints = points(0, 0, RANGE * SCALE);
       lines[i] = setUpLine(vectorPoints);
       scene.add(lines[i]);
     }
-    const renderer = setUpRenderer(window.innerWidth, window.innerHeight);
     const renderElement = document.getElementById(TARGET) || null;
     if (renderElement !== null) {
+      const renderer = setUpRenderer(
+        renderElement.clientWidth,
+        renderElement.clientHeight,
+      );
       renderElement.appendChild(renderer.domElement);
       renderer.render(scene, camera);
+
+      // Events
+      const mainContainer = document.getElementById("goodthing") || null;
+      // Just a whole lot of side-effects
+      const updater = () /*: void */ => {
+        lines.forEach((line /* Object */) /*: void */ => {
+          const vectorPoints = points(0, 0, RANGE * SCALE);
+          line.geometry.setFromPoints(vectorPoints);
+          line.geometry.attributes.position.needsUpdate = true;
+        });
+        renderer.render(scene, camera);
+      };
+      if (mainContainer !== null) {
+        // Modernizr doesn't have an es module npm package so it's
+        // imported with a <script> tag in `index.html`
+        // $FlowFixMe
+        if (Modernizr.hasEvent("touchend")) {
+          mainContainer.addEventListener(
+            "touchend",
+            () => {
+              // Doesn't work on iPhone ~ https://caniuse.com/#feat=fullscreen
+              // Plus we only want fullscreen on touch devices
+              screenfull.request().then(() /*: void */ => {
+                setTimeout(
+                  () /*: void */ => {
+                    if (renderElement !== null) {
+                      const camera = setUpCamera(
+                        renderElement.clientWidth,
+                        renderElement.clientHeight,
+                      );
+                      renderer.setSize(
+                        (renderElement.clientWidth * SCALE) | 0,
+                        (renderElement.clientHeight * SCALE) | 0,
+                        false,
+                      );
+                      // Clear the scene - totally
+                      while (renderElement.firstChild) {
+                        renderElement.removeChild(renderElement.firstChild);
+                      }
+                      // ...and attach a fresh one
+                      renderElement.appendChild(renderer.domElement);
+                      renderer.render(scene, camera);
+                    }
+                  },
+                  500,
+                );
+              });
+            },
+            { once: true },
+          );
+          mainContainer.addEventListener("touchend", () => {
+            updater();
+          });
+        } else {
+          mainContainer.addEventListener("mouseup", () => {
+            updater();
+          });
+        }
+      }
     } else {
       throw new Error(
         `There is a problem rendering the scene - div#${TARGET} doesn't exist`,
       );
-    }
-
-    // Events
-    const mainContainer = document.getElementById("goodthing") || null;
-    // Just a whole lot of side-effects
-    const updater = () /*: void */ => {
-      lines.forEach((line /* Object */) /*: void */ => {
-        const vectorPoints = points(0, 0, POINTS_PER_LINE);
-        line.geometry.setFromPoints(vectorPoints);
-        line.geometry.attributes.position.needsUpdate = true;
-      });
-      renderer.render(scene, camera);
-    };
-    if (mainContainer !== null) {
-      // Modernizr doesn't have an es module npm package so it's
-      // imported with a <script> tag in `index.html`
-      // $FlowFixMe
-      if (Modernizr.hasEvent("touchend")) {
-        mainContainer.addEventListener(
-          "touchend",
-          () => {
-            // Doesn't work on iPhone ~ https://caniuse.com/#feat=fullscreen
-            // Plus we only want fullscreen on touch devices
-            screenfull.request().then(() /*: void */ => {
-              setTimeout(
-                () /*: void */ => {
-                  const camera = setUpCamera(
-                    window.innerWidth,
-                    window.innerHeight,
-                  );
-                  renderer.setSize(window.innerWidth, window.innerHeight);
-                  if (renderElement !== null) {
-                    // Clear the scene - totally
-                    while (renderElement.firstChild) {
-                      renderElement.removeChild(renderElement.firstChild);
-                    }
-                    // ...and attach a fresh one
-                    renderElement.appendChild(renderer.domElement);
-                  }
-                  renderer.render(scene, camera);
-                },
-                500,
-              );
-            });
-          },
-          { once: true },
-        );
-        mainContainer.addEventListener("touchend", () => {
-          updater();
-        });
-      } else {
-        mainContainer.addEventListener("mouseup", () => {
-          updater();
-        });
-      }
     }
   });
 
@@ -137,7 +152,10 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
 
   // Line
   const setUpLine = (vectorPoints /*: Array<Object> */) /*: Object */ => {
-    const material = new THREE.LineBasicMaterial({ color: 0x222222 });
+    const material = new THREE.LineBasicMaterial({
+      color: 0x222222,
+      linewidth: 2,
+    });
     const geometry = new THREE.BufferGeometry().setFromPoints(vectorPoints);
     const line = new THREE.Line(geometry, material);
     return line;
@@ -156,7 +174,7 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
     height /*: number */,
   ) /*: Object */ => {
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(width, height);
+    renderer.setSize((width * SCALE) | 0, (height * SCALE) | 0, false);
     return renderer;
   };
 
