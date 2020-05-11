@@ -66,6 +66,13 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
 
     // Events
     const mainContainer = document.getElementById("goodthing") || null;
+    // Basically just a bag of side-effects
+    const updater = () /*: void */ => {
+      const vectorPoints = points(0, 0, POINTS_PER_LINE);
+      line.geometry.setFromPoints(vectorPoints);
+      line.geometry.attributes.position.needsUpdate = true;
+      renderer.render(scene, camera);
+    };
     if (mainContainer !== null) {
       // Modernizr doesn't have an es module npm package so it's
       // imported with a <script> tag in `index.html`
@@ -79,26 +86,6 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
             screenfull.request().then(() /*: void */ => {
               setTimeout(
                 () /*: void */ => {
-                  if (document.body !== null) {
-                    document.body.style.height = window.innerHeight + "px";
-                    if (
-                      document.body.parentElement !== null &&
-                      typeof document.body.parentElement !== "undefined"
-                    ) {
-                      // $FlowFixMe
-                      document.body.parentElement.style.height =
-                        window.innerHeight + "px";
-                    }
-                  }
-
-                  if (document.getElementById("lines1") !== null) {
-                    // $FlowFixMe
-                    document.getElementById("lines1").style.width =
-                      window.innerWidth + "px";
-                    // $FlowFixMe
-                    document.getElementById("lines1").style.height =
-                      window.innerHeight + "px";
-                  }
                   const camera = setUpCamera(
                     window.innerWidth,
                     window.innerHeight,
@@ -121,17 +108,11 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
           { once: true },
         );
         mainContainer.addEventListener("touchend", () => {
-          const vectorPoints = points(0, 0, POINTS_PER_LINE);
-          line.geometry.setFromPoints(vectorPoints);
-          line.geometry.attributes.position.needsUpdate = true;
-          renderer.render(scene, camera);
+          updater();
         });
       } else {
         mainContainer.addEventListener("mouseup", () => {
-          const vectorPoints = points(0, 0, POINTS_PER_LINE);
-          line.geometry.setFromPoints(vectorPoints);
-          line.geometry.attributes.position.needsUpdate = true;
-          renderer.render(scene, camera);
+          updater();
         });
       }
     }
