@@ -7,6 +7,7 @@ import { createHashHistory } from "../web_modules/history.js";
 import { createBrowserHistory } from "../web_modules/history.js";
 import Lines1 from "./Lines1.js";
 import Lines2 from "./Lines2.js";
+import Lines3 from "./Lines3.js";
 
 // Flow
 /*::
@@ -36,6 +37,7 @@ const App /*: function */ = (props /*: Props */) /*: HtmType */ => {
       <${Lines1} path="/" />
       <${Lines1} path="/lines1" />
       <${Lines2} path="/lines2" />
+      <${Lines3} path="/lines3" />
     </${Router}>
   `;
 };
