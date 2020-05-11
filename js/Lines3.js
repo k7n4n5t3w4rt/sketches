@@ -1,5 +1,5 @@
 // @flow
-import * as THREE from "../web_modules/three.js";
+// import * as THREE from "../web_modules/three.js";
 import { points } from "./lines3/points.js";
 import { h, render } from "../web_modules/preact.js";
 import { useState, useEffect } from "../web_modules/preact/hooks.js";
@@ -47,7 +47,7 @@ const [styles] /*: CreateStylesType */ = createStyles(
     },
   },
   null,
-  "kljhyoiweut",
+  "zvasdasdf",
 );
 
 /*::
@@ -73,6 +73,43 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
       );
       renderElement.appendChild(renderer.domElement);
       renderer.render(scene, camera);
+
+      ////////////////////////////////////////////////////////////////////////////////
+      //          handle arToolkitSource
+      ////////////////////////////////////////////////////////////////////////////////
+
+      const arToolkitSource = new THREEx.ArToolkitSource({
+        sourceType: "webcam",
+        sourceWidth: 480,
+        sourceHeight: 640,
+      });
+
+      arToolkitSource.init(function onReady() {
+        // use a resize to fullscreen mobile devices
+        setTimeout(function() {
+          onResize();
+        }, 1000);
+      });
+
+      // handle resize
+      window.addEventListener("resize", function() {
+        onResize();
+      });
+
+      // listener for end loading of NFT marker
+      window.addEventListener("arjs-nft-loaded", function(ev) {
+        console.log(ev);
+      });
+
+      function onResize() {
+        arToolkitSource.onResizeElement();
+        arToolkitSource.copyElementSizeTo(renderer.domElement);
+        if (arToolkitContext.arController !== null) {
+          arToolkitSource.copyElementSizeTo(
+            arToolkitContext.arController.canvas,
+          );
+        }
+      }
 
       // Events
       const mainContainer = document.getElementById("goodthing") || null;
@@ -175,6 +212,7 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
   ) /*: Object */ => {
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize((width * SCALE) | 0, (height * SCALE) | 0, false);
+    renderer.setPixelRatio(window.devicePixelRatio);
     return renderer;
   };
 
