@@ -59,8 +59,8 @@ export const restoreIndexFile = () /*:  Promise<boolean> */ => {
     if (cachedFileContents !== "") {
       restoredIndexFileContents =
         cachedFileContents.replace(
-          /data-goodthing[\s\S]*data-goodthing/g,
-          "data-goodthing><!-- GOODTHING --></div data-goodthing",
+          /<body id="goodthing">[\s\S]*<\/body>/g,
+          '<body id="goodthing"><!-- GOODTHING --></body>',
         ) || "";
       if (restoredIndexFileContents !== "") {
         return openFile(indexFilePath)

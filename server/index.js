@@ -81,10 +81,10 @@ const renderToString = (url /*: string */) /*: string */ => {
   const index /*: string */ = fs.readFileSync("./index.html", "utf8");
   // [1] Swap the placeholder copy with the rendered output
   let renderedContent = index.replace(
-    /data-goodthing[\s\S]*data-goodthing/g,
-    "data-goodthing>" +
+    /<body id="goodthing">[\s\S]*<\/body>/g,
+    '<body id="goodthing">' +
       render(App({ url }), {}, { pretty: true }) +
-      "</div data-goodthing",
+      "</body>",
   );
   return renderedContent;
 };

@@ -180,6 +180,7 @@ const Lines = (props /*: Props */) /*: HtmType */ => {
   };
 
   return html`
+    <script src="/js/vendor/three.js"></script>
     <div id="container" className="${styles.container}">
       <div id="${TARGET}" className="${styles[TARGET]}"></div>
     </div>
