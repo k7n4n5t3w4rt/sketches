@@ -1,24 +1,8 @@
 // @flow
-import { h, hydrate, render } from "../web_modules/preact.js";
-import App from "./App.js";
-import htm from "../web_modules/htm.js";
-import screenfull from "../web_modules/screenfull.js";
+import {h, hydrate, render }from "../web_modules/preact.js"; 
+import App from "./App.js"; 
+import htm from "../web_modules/htm.js"; 
 
-// Flow
-/*::
-import typeof HtmType from "../web_modules/htm.js";
-import typeof {
-  h as HType,
-  render as RenderType,
-} from "../web_modules/preact.js";
-import typeof AppType from "./App.js";
-*/
+const html = htm.bind(h); 
 
-const html /*: HtmType */ = htm.bind(h);
-
-hydrate(
-  html`
-    <${App} />
-  `,
-  document.getElementById("goodthing"),
-);
+hydrate(html` < $ {App}/> `, document.getElementById("goodthing")); 

@@ -1,7 +1,10 @@
 // @flow
 import fs from "fs";
 
+export const goodthingElement /*: string */ = "div"; // typically either "div" or "body"
+
 export const cacheTtl /*: number */ = 0; // Seconds
+
 export const appPaths = () /*: Array<string> */ => {
   const appContents = fs.readFileSync("./js/App.js", "utf8");
   const keyValues = appContents.match(/path=".+"/g);
@@ -14,4 +17,5 @@ export const appPaths = () /*: Array<string> */ => {
   }
   return paths;
 };
+
 export const unCachedUrls /*: Array<string> */ = ["/people/tim"];

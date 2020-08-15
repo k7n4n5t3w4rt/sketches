@@ -1,4 +1,5 @@
 // @flow
+import conf from "./config.js";
 import http from "http";
 import fs from "fs";
 import finalHandler from "finalhandler";
@@ -7,28 +8,15 @@ import { h } from "../web_modules/preact.js";
 import htm from "../web_modules/htm.js";
 import render from "../web_modules/preact-render-to-string.js";
 import App from "../js/App.js";
-import { readFromCache, writeToCache } from "./static.js";
-import { cacheTtl, appPaths, unCachedUrls } from "./static_config.js";
-
-const html /*: HtmType */ = htm.bind(h);
-
+import staticCache from "./static_cache.js";
+import {
+  goodthingElement,
+  cacheTtl,
+  appPaths,
+  unCachedUrls,
+} from "./static_config.js";
 // Flow
-/*::
-import typeof { cacheTtl as CacheTtlType, appPaths as AppPathsType, unCachedUrls as UnCachedUrlsType } from "./static_config.js";
-import typeof {readFromCache as ReadFromCacheType, writeToCache as WriteToCacheType} from "./static.js";
-import typeof AppType from "../js/App.js";
-import typeof YabrType from "../web_modules/yabr.js";
-import typeof RenderType from "../web_modules/preact-render-to-string.js";
-import typeof { h as HType } from "../web_modules/preact.js";
-import typeof HtmType from "../web_modules/htm.js";
-import typeof ServeStaticType from "serve-static";
-import typeof FinalHandlerType from "finalhandler";
-import typeof FsType from "fs";
-import typeof HttpType from "http";
-*/
-
-// CONFIG
-const PORT /*: number */ = 4000;
+const html = htm.bind(h);
 
 var serveAsStatic = serveStatic(".", {
   index: false,
@@ -40,61 +28,85 @@ const requestHandler = (req, res) => {
   // to `preact-router` when `/js/App.js` is being
   // rendered server-side
   const [urlPath /*: string */, queryString /*: string */] = req.url.split("?");
+  let generate /*: boolean */ = false;
   let generateValue /*: string */ = "";
   if (typeof queryString !== "undefined") {
     [, generateValue] = queryString.split("=");
+    generate = generateValue === "true";
   }
   let forceCache /*: boolean */ = false;
-  if (generateValue === "true") {
+  if (generate === true) {
     forceCache = true;
   }
   if (urlPath.match(/.+\..+$/) !== null) {
-    // console.log("Static: ", urlPath);
     serveAsStatic(req, res, finalHandler(req, res));
   } else if (
     cacheTtl > 0 &&
     forceCache === false &&
     appPaths().indexOf(urlPath) !== -1
   ) {
-    const output = readFromCache(urlPath, cacheTtl);
+    const output = staticCache.readFromCache(urlPath, cacheTtl);
     if (output !== false) {
-      console.log("Cache: ", urlPath);
+      // console.log("Cache: ", urlPath);
       res.end(output);
     } else {
-      const output = renderToString(urlPath);
-      writeToCache(urlPath, output);
-      console.log("Rendered: ", urlPath);
+      const output = renderToString(urlPath, generate);
+      staticCache.writeToCache(urlPath, output);
+      // console.log("Rendered: ", urlPath);
       res.end(output);
     }
   } else {
-    const output = renderToString(urlPath);
+    const output = renderToString(urlPath, generate);
     if (forceCache === true) {
-      writeToCache(urlPath, output);
-      console.log("Cached: ", urlPath);
+      staticCache.writeToCache(urlPath, output);
+      // console.log("Cached: ", urlPath);
     }
-    console.log("Rendered: ", urlPath);
+    // console.log("Rendered: ", urlPath);
     res.end(output);
   }
 };
 
-const renderToString = (url /*: string */) /*: string */ => {
+const renderToString = (
+  url /*: string */,
+  generate /*: boolean */,
+) /*: string */ => {
   const index /*: string */ = fs.readFileSync("./index.html", "utf8");
-  // [1] Swap the placeholder copy with the rendered output
-  let renderedContent = index.replace(
-    /<body id="goodthing">[\s\S]*<\/body>/g,
-    '<body id="goodthing">' +
-      render(App({ url }), {}, { pretty: true }) +
-      "</body>",
+  let renderedContent = index;
+
+  // Server-side rendering
+  if (conf.NODE_ENV !== "development" || generate === true) {
+    // [1] Swap the placeholder copy with the rendered output
+    const gtStartElement = `<${goodthingElement} id="goodthing" data-goodthing>`;
+    const gtStartElementRe = `<${goodthingElement} id="goodthing" data-goodthing>`;
+    const gtEndElement = `</${goodthingElement} data-goodthing>`;
+    const gtEndElementRe = `<\\/${goodthingElement} data-goodthing>`;
+    const reString = `${gtStartElementRe}[\\s\\S]*${gtEndElementRe}`;
+    const re = new RegExp(reString, "g");
+    renderedContent = index.replace(
+      re,
+      `${gtStartElement}` +
+        render(App({ url }), {}, { pretty: true }) +
+        `${gtEndElement}`,
+    );
+  }
+
+  // Do the ENVs
+  const re_env_NODE_ENV = new RegExp("_NODE_ENV_", "g");
+  renderedContent = renderedContent.replace(re_env_NODE_ENV, conf.NODE_ENV);
+  const re_env_REMEMBER_ME = new RegExp("_REMEMBER_ME_", "g");
+  renderedContent = renderedContent.replace(
+    re_env_REMEMBER_ME,
+    conf.REMEMBER_ME.toString(),
   );
   return renderedContent;
 };
 
 const server = http.createServer(requestHandler);
 
-server.listen(PORT, err => {
+server.listen(conf.PORT, (err) => {
   if (err) {
     return console.log("something bad happened", err);
   }
 
-  console.log(`server is listening on ${PORT}`);
+  console.log(`server is listening on ${conf.PORT}`);
 });

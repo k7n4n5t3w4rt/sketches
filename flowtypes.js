@@ -2,6 +2,10 @@ declare module "finalhandler" {
   declare module.exports: any;
 }
 
+declare module "../web_modules/immer.js" {
+  declare module.exports: any;
+}
+
 declare module "../web_modules/preact.js" {
   declare module.exports: any;
 }
@@ -34,26 +38,10 @@ declare module "../web_modules/htm.js" {
   declare module.exports: any;
 }
 
-declare module "../web_modules/yabr.js" {
-  declare module.exports: any;
-}
-
 declare module "../web_modules/preact-router.js" {
   declare module.exports: any;
 }
 
 declare module "../web_modules/history.js" {
-  declare module.exports: any;
-}
-
-declare module "../web_modules/three.js" {
-  declare module.exports: any;
-}
-
-declare module "../../web_modules/three.js" {
-  declare module.exports: any;
-}
-
-declare module "../web_modules/screenfull.js" {
   declare module.exports: any;
 }
