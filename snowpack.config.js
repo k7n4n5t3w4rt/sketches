@@ -14,6 +14,8 @@ module.exports = {
     "preact-router",
     "should/as-function.js",
     "simplestyle-js",
+		"screenfull",
+		"three"
   ],
   installOptions: {
     rollup: {
