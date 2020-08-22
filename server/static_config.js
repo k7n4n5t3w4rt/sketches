@@ -17,5 +17,3 @@ export const appPaths = () /*: Array<string> */ => {
   }
   return paths;
 };
-
-export const unCachedUrls /*: Array<string> */ = ["/people/tim"];
