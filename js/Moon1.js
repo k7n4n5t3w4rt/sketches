@@ -24,21 +24,35 @@ type Props = {
 const Moon = (props /*: Props */) => {
   useEffect(() => {});
 
-  //   <a-assets>
-  //     <a-asset-item
-  //       id="moon"
-  //       position="0 1.25 -5"
-  //       radius="1.25"
-  //       src="../img/Moon_1_3474.glb"
-  //     ></a-asset-item>
-  //   </a-assets>
-
-  //   <a-entity gltf-model="#moon"></a-entity>
   return html`
-    <a-scene>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+    <a-scene
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <a-entity
+        position="0 0 0"
+        look-at="[gps-camera]"
+        scale="3000 3000 3000"
+        gltf-model="url(/img/BarramundiFish.gltf)"
+        gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
+      ></a-entity>
+      <a-camera
+        rotation-reader
+        gps-camera="
+			alert:true;
+			positionMinAccuracy:1000;
+			minDistance: 1;
+			maxDistance: 100000;
+			simulateAltitude:0;
+			simulateLatitude:-35.3170510;
+			simulateLongitude:149.107410;
+		"
+      >
+      </a-camera>
     </a-scene>
   `;
 };
 
+// simulateLatitude:-35.3082237;
+// simulateLongitude:149.1222036;
 export default Moon;
