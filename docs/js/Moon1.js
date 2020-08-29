@@ -38,8 +38,8 @@ const Moon = (props /*: Props */) => {
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       ></a-entity>
       <a-camera
-        near="1"
-        far="10000"
+        near="0.5"
+        far="100000"
         rotation-reader
         gps-camera="
 			positionMinAccuracy:1000;
