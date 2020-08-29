@@ -31,7 +31,7 @@ const Moon = (props /*: Props */) => {
       debug="true"
     >
       <a-entity
-        position="0 2 0"
+        position="0 10 0"
         look-at="[gps-camera]"
         scale=".175 .175 .175"
         gltf-model="url(/img/coal/DBS_ex_01.gltf)"
