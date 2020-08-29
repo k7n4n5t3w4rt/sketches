@@ -42,12 +42,10 @@ const Moon = (props /*: Props */) => {
         far="100000"
         rotation-reader
         gps-camera="
-			positionMinAccuracy:1000;
-			minDistance: 0;
-			maxDistance: 0;
+			positionMinAccuracy:10000;
 			simulateAltitude:0;
-			simulateLatitude:-35.3092237;
-			simulateLongitude:149.1232036;"
+			simulateLatitude:-35.30822;
+			simulateLongitude:149.1239828;"
       ></a-camera>
     </a-scene>
   `;
