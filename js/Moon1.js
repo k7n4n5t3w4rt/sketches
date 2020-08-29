@@ -33,8 +33,8 @@ const Moon = (props /*: Props */) => {
       <a-entity
         position="0 2 0"
         look-at="[gps-camera]"
-        scale="2000 2000 2000"
-        gltf-model="url(/img/BarramundiFish.gltf)"
+        scale=".175 .175 .175"
+        gltf-model="url(/img/coal/DBS_ex_01.gltf)"
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       ></a-entity>
       <a-camera
@@ -45,8 +45,8 @@ const Moon = (props /*: Props */) => {
 			minDistance: 0.1;
 			maxDistance: 10000;
 			simulateAltitude:0;
-			simulateLatitude:-35.3170519;
-			simulateLongitude:149.107418;
+			simulateLatitude:-35.3092237;
+			simulateLongitude:149.1232036;
 		"
       >
       </a-camera>
@@ -54,6 +54,6 @@ const Moon = (props /*: Props */) => {
   `;
 };
 
-// simulateLatitude:-35.3082237;
-// simulateLongitude:149.1222036;
+// simulateLatitude:-35.3170519;
+// simulateLongitude:149.107418;
 export default Moon;
