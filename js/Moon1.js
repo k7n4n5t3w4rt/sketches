@@ -38,18 +38,17 @@ const Moon = (props /*: Props */) => {
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       ></a-entity>
       <a-camera
+        near="1"
+        far="10000"
         rotation-reader
         gps-camera="
-			alert:true;
 			positionMinAccuracy:1000;
 			minDistance: 0;
 			maxDistance: 0;
 			simulateAltitude:0;
 			simulateLatitude:-35.3092237;
-			simulateLongitude:149.1232036;
-		"
-      >
-      </a-camera>
+			simulateLongitude:149.1232036;"
+      ></a-camera>
     </a-scene>
   `;
 };
