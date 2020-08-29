@@ -28,11 +28,12 @@ const Moon = (props /*: Props */) => {
     <a-scene
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; debugUIEnabled: false;"
+      debug="true"
     >
       <a-entity
-        position="0 0 0"
+        position="0 2 0"
         look-at="[gps-camera]"
-        scale="3000 3000 3000"
+        scale="2000 2000 2000"
         gltf-model="url(/img/BarramundiFish.gltf)"
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       ></a-entity>
@@ -41,11 +42,11 @@ const Moon = (props /*: Props */) => {
         gps-camera="
 			alert:true;
 			positionMinAccuracy:1000;
-			minDistance: 1;
-			maxDistance: 100000;
+			minDistance: 0.1;
+			maxDistance: 10000;
 			simulateAltitude:0;
-			simulateLatitude:-35.3170510;
-			simulateLongitude:149.107410;
+			simulateLatitude:-35.3170519;
+			simulateLongitude:149.107418;
 		"
       >
       </a-camera>
