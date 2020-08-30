@@ -39,7 +39,7 @@ const Moon = (props /*: Props */) => {
       ></a-entity>
       <a-camera
         rotation-reader
-        gps-camera="positionMinAccuracy:10000; simulateAltitude:0; simulateLatitude:-35.315403; simulateLongitude:149.1158523;"
+        gps-camera="positionMinAccuracy:10000; simulateAltitude:0; simulateLatitude:-35.30822; simulateLongitude:149.1239828;"
       ></a-camera>
     </a-scene>
   `;
