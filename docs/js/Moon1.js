@@ -27,30 +27,33 @@ const Moon = (props /*: Props */) => {
   return html`
     <a-scene
       vr-mode-ui="enabled: false"
+      embedded
       arjs="sourceType: webcam; debugUIEnabled: false;"
-      debug="true"
     >
+      <a-sphere
+        color="yellow"
+        radius="1"
+        position="0 0 0"
+        scale="250 250 250"
+        gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
+      ></a-sphere>
       <a-entity
         position="0 3 0"
         look-at="[gps-camera]"
-        scale=".2 .2 .2"
+        scale=".3 .3 .3"
         gltf-model="url(/img/coal/DBS_ex_01.gltf)"
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       ></a-entity>
-      <a-camera
-        near="0.5"
-        far="100000"
-        rotation-reader
-        gps-camera="
-			positionMinAccuracy:10000;
-			simulateAltitude:0;
-			simulateLatitude:-35.30822;
-			simulateLongitude:149.1239828;"
-      ></a-camera>
     </a-scene>
   `;
 };
 
-// simulateLatitude:-35.3170519;
-// simulateLongitude:149.107418;
+//   <a-camera
+//     near="0.5"
+//     far="10000"
+//     rotation-reader
+//     gps-camera="positionMinAccuracy:10000; simulateAltitude:0; simulateLatitude:-35.315403; simulateLongitude:149.1158523;"
+//   ></a-camera>
+// simulateLatitude:-35.30822;
+// simulateLongitude:149.1239828;"
 export default Moon;
