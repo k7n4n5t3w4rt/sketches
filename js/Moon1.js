@@ -28,7 +28,7 @@ const Moon = (props /*: Props */) => {
     <a-scene
       vr-mode-ui="enabled: false"
       embedded
-      arjs="sourceType: webcam; debugUIEnabled: false;"
+      arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
       <a-entity
         position="0 0 0"
