@@ -45,21 +45,12 @@ const Coal = (props /*: Props */) => {
 			positionMinAccuracy:10000;
 			minDistance:0;
 			maxDistance:0;
-			simulateAltitude:0;
-			simulateLatitude:-35.30822;
-			simulateLongitude:149.1239828;"
+			simulateAltitude:0;"
       ></a-camera>
     </a-scene>
   `;
 };
 
-//   <a-sphere
-//     color="yellow"
-//     radius="1"
-//     position="0 0 0"
-//     scale="250 250 250"
-//     gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
-//   ></a-sphere>
 // simulateLatitude:-35.30822;
 // simulateLongitude:149.1239828;"
 export default Coal;
