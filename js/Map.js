@@ -54,7 +54,7 @@ const Map = (props /*: Props */) => {
         gps-entity-place="latitude: -33.557644; longitude: 151.318952;"
       ></a-sphere>
       <a-camera
-        near="1000"
+        near="3000"
         far="10000"
         rotation-reader
         gps-camera="
