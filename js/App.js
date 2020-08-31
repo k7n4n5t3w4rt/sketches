@@ -5,7 +5,8 @@ import Router from "../web_modules/preact-router.js";
 import { AppProvider } from "./AppContext.js";
 import Lines1 from "./Lines1.js";
 import Lines2 from "./Lines2.js";
-import Moon1 from "./Moon1.js";
+import Moon from "./Moon.js";
+import Coal from "./Coal.js";
 const html = htm.bind(h);
 
 /*::
@@ -16,10 +17,11 @@ const App /*: function */ = (props /*: Props */) => {
   return html`
     	<${AppProvider} >
     		<${Router} >
-				<${Moon1} path="/" />
+				<${Coal} path="/" />
 				<${Lines1} path="/lines1" />
 				<${Lines2} path="/lines2" />
-				<${Moon1} path="/moon1" />
+				<${Moon} path="/moon" />
+				<${Coal} path="/coal" />
     		</${Router}>
     	</${AppProvider} >
   `;
