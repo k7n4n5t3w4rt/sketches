@@ -26,35 +26,35 @@ const Map = (props /*: Props */) => {
       arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
       <a-sphere
-        color="silver"
+        color="pink"
         radius="1"
-        position="0 251 0"
-        scale="100 100 100"
-        gps-entity-place="latitude: -33.4938125; longitude: 151.2728018;"
+        position="0 91 0"
+        scale="200 200 200"
+        gps-entity-place="latitude: -33.5801498; longitude: 151.3275505;"
       ></a-sphere>
       <a-sphere
-        color="silver"
-        radius="1"
-        position="0 60 0"
-        scale="100 100 100"
-        gps-entity-place="latitude: -33.557636; longitude: 151.3170053;"
-      ></a-sphere>
-      <a-sphere
-        color="silver"
+        color="blue"
         radius="1"
         position="0 105 0"
-        scale="100 100 100"
+        scale="200 200 200"
         gps-entity-place="latitude: -33.5813438; longitude: 151.3119409;"
       ></a-sphere>
       <a-sphere
-        color="silver"
+        color="green"
         radius="1"
-        position="0 91 0"
-        scale="100 100 100"
-        gps-entity-place="latitude: -33.557644; longitude: 151.318952;"
+        position="0 60 0"
+        scale="200 200 200"
+        gps-entity-place="latitude: -33.557636; longitude: 151.3170053;"
+      ></a-sphere>
+      <a-sphere
+        color="red"
+        radius="1"
+        position="0 251 0"
+        scale="200 200 200"
+        gps-entity-place="latitude: -33.4938125; longitude: 151.2728018;"
       ></a-sphere>
       <a-camera
-        near="3000"
+        near="1000"
         far="10000"
         rotation-reader
         gps-camera="
