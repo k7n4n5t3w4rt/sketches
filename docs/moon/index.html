@@ -51,12 +51,17 @@
 
 <body style="margin: 0; overflow: hidden;">
 	<div id="goodthing" data-goodthing><a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;">
-	<a-entity position="0 0 0" look-at="[gps-camera]" scale="5 5 5" gltf-model="url(/img/coal/DBS_ex_01.gltf)" gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"></a-entity>
-	<a-camera near="1" far="70000" rotation-reader gps-camera="
+	<a-sphere color="silver" radius="1" position="0 251 0" scale="100 100 100" gps-entity-place="latitude: -33.4938125; longitude: 151.2728018;"></a-sphere>
+	<a-sphere color="silver" radius="1" position="0 60 0" scale="100 100 100" gps-entity-place="latitude: -33.557636; longitude: 151.3170053;"></a-sphere>
+	<a-sphere color="silver" radius="1" position="0 105 0" scale="100 100 100" gps-entity-place="latitude: -33.5813438; longitude: 151.3119409;"></a-sphere>
+	<a-sphere color="silver" radius="1" position="0 91 0" scale="100 100 100" gps-entity-place="latitude: -33.557644; longitude: 151.318952;"></a-sphere>
+	<a-camera near="3000" far="10000" rotation-reader gps-camera="
 				positionMinAccuracy:10000;
 				minDistance:0;
 				maxDistance:0;
-				simulateAltitude:0;"
+				simulateAltitude: 85;
+				simulateLatitude: -33.5467087;
+				simulateLongitude: 151.3371129"
 	>
 	</a-camera>
 </a-scene></div data-goodthing>

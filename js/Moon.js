@@ -4,10 +4,6 @@ import { useState, useEffect } from "../web_modules/preact/hooks.js";
 import { createStyles, rawStyles } from "../web_modules/simplestyle-js.js";
 import htm from "../web_modules/htm.js";
 
-const RANGE = 10;
-const SCALE = 1;
-const TARGET = "lines3";
-
 const html = htm.bind(h);
 rawStyles({
   canvas: {
@@ -18,7 +14,6 @@ rawStyles({
 
 /*::
 type Props = {
-  count: typeof Number
 };
 */
 const Moon = (props /*: Props */) => {
@@ -39,7 +34,7 @@ const Moon = (props /*: Props */) => {
       ></a-sphere>
       <a-camera
         near="1"
-        far="10000"
+        far="80000"
         rotation-reader
         gps-camera="
 			positionMinAccuracy:10000;
