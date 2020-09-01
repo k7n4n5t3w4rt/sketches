@@ -55,7 +55,7 @@
 		"generate:run": "npm run generate && npm run browsersync",
 		"github-pages": "mv docs/CNAME ./ && rm -rf docs && mv public docs && mkdir public && mv CNAME docs/",
 		"lint": "prettier --check \"src/**/*.{js,jsx}\"",
-		"snowpack:underscore-fix": "grep -r -l _commonjsHelpers web_modules | xargs sed -i '' s/_commonjsHelpers/commonjshelpers/g $i && mv web_modules/common/_commonjsHelpers-1d2f7e84.js web_modules/common/commonjsHelpers-1d2f7e84.js",
+		"snowpack:underscore-fix": "grep -r -l _commonjsHelpers web_modules | xargs sed -i '' s/_commonjsHelpers/commonjshelpers/g $i && mv web_modules/common/_commonjsHelpers-1d2f7e84.js web_modules/common/commonjshelpers-1d2f7e84.js",
 		"snowpack": "snowpack install && npm run snowpack:underscore-fix",
 		"start": "node server/index.js",
 		"start:static": "node server/index.js",
