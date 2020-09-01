@@ -19,11 +19,7 @@ type Props = {
 const Map = (props /*: Props */) => {
   useEffect(() => {});
 
-  return html`
-    <a-scene>
-      <a-camera></a-camera>
-    </a-scene>
-  `;
+  return html` <a-scene> </a-scene> `;
 };
 
 // Goes in <a-scene>:
@@ -32,6 +28,7 @@ const Map = (props /*: Props */) => {
 // embedded
 
 // Goes in <a-camera>:
+//       <a-camera></a-camera>
 //  near="1000" far="10000"
 // rotation-reader
 // gps-camera="
