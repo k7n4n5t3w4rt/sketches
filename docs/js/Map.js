@@ -21,24 +21,23 @@ const Map = (props /*: Props */) => {
 
   return html`
     <a-scene vr-mode-ui="enabled: false" embedded>
-      <a-camera
-        near="1000"
-        far="10000"
-        rotation-reader
-        gps-camera="
-			positionMinAccuracy:10000;
-			minDistance:0;
-			maxDistance:0;
-			simulateAltitude: 85;
-			simulateLatitude: -33.5467087;
-			simulateLongitude: 151.3371129"
-      ></a-camera>
+      <a-camera near="1000" far="10000"></a-camera>
     </a-scene>
   `;
 };
 
 // Goes in <a-scene>:
 // arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
+
+// Goes in <a-camera>
+// rotation-reader
+// gps-camera="
+// 	positionMinAccuracy:10000;
+// 	minDistance:0;
+// 	maxDistance:0;
+// 	simulateAltitude: 85;
+// 	simulateLatitude: -33.5467087;
+// 	simulateLongitude: 151.3371129"
 
 //   <a-sphere
 //     color="pink"
