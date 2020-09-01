@@ -20,11 +20,7 @@ const Map = (props /*: Props */) => {
   useEffect(() => {});
 
   return html`
-    <a-scene
-      vr-mode-ui="enabled: false"
-      embedded
-      arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
-    >
+    <a-scene vr-mode-ui="enabled: false" embedded>
       <a-camera
         near="1000"
         far="10000"
@@ -40,6 +36,9 @@ const Map = (props /*: Props */) => {
     </a-scene>
   `;
 };
+
+// Goes in <a-scene>:
+// arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
 
 //   <a-sphere
 //     color="pink"
