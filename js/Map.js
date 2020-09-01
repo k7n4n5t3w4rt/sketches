@@ -21,37 +21,10 @@ const Map = (props /*: Props */) => {
 
   return html`
     <a-scene
+      vr-mode-ui="enabled: false"
       embedded
       arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
-      <a-sphere
-        color="pink"
-        radius="1"
-        position="0 91 0"
-        scale="200 200 200"
-        gps-entity-place="latitude: -33.5801498; longitude: 151.3275505;"
-      ></a-sphere>
-      <a-sphere
-        color="blue"
-        radius="1"
-        position="0 105 0"
-        scale="200 200 200"
-        gps-entity-place="latitude: -33.5813438; longitude: 151.3119409;"
-      ></a-sphere>
-      <a-sphere
-        color="green"
-        radius="1"
-        position="0 60 0"
-        scale="200 200 200"
-        gps-entity-place="latitude: -33.557636; longitude: 151.3170053;"
-      ></a-sphere>
-      <a-sphere
-        color="red"
-        radius="1"
-        position="0 251 0"
-        scale="200 200 200"
-        gps-entity-place="latitude: -33.4938125; longitude: 151.2728018;"
-      ></a-sphere>
       <a-camera
         near="1000"
         far="10000"
@@ -68,4 +41,32 @@ const Map = (props /*: Props */) => {
   `;
 };
 
+//   <a-sphere
+//     color="pink"
+//     radius="1"
+//     position="0 91 0"
+//     scale="200 200 200"
+//     gps-entity-place="latitude: -33.5801498; longitude: 151.3275505;"
+//   ></a-sphere>
+//   <a-sphere
+//     color="blue"
+//     radius="1"
+//     position="0 105 0"
+//     scale="200 200 200"
+//     gps-entity-place="latitude: -33.5813438; longitude: 151.3119409;"
+//   ></a-sphere>
+//   <a-sphere
+//     color="green"
+//     radius="1"
+//     position="0 60 0"
+//     scale="200 200 200"
+//     gps-entity-place="latitude: -33.557636; longitude: 151.3170053;"
+//   ></a-sphere>
+//   <a-sphere
+//     color="red"
+//     radius="1"
+//     position="0 251 0"
+//     scale="200 200 200"
+//     gps-entity-place="latitude: -33.4938125; longitude: 151.2728018;"
+//   ></a-sphere>
 export default Map;
