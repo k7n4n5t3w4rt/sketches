@@ -18,7 +18,7 @@ const App /*: function */ = (props /*: Props */) => {
   return html`
     	<${AppProvider} >
     		<${Router} >
-				<${Coal} path="/" />
+				<${Map} path="/" />
 				<${Lines1} path="/lines1" />
 				<${Lines2} path="/lines2" />
 				<${Moon} path="/moon" />

@@ -21,7 +21,6 @@ const Coal = (props /*: Props */) => {
 
   return html`
     <a-scene
-      vr-mode-ui="enabled: false"
       embedded
       arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
