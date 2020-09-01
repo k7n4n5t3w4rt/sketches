@@ -20,16 +20,19 @@ const Map = (props /*: Props */) => {
   useEffect(() => {});
 
   return html`
-    <a-scene vr-mode-ui="enabled: false" embedded>
-      <a-camera near="1000" far="10000"></a-camera>
+    <a-scene>
+      <a-camera></a-camera>
     </a-scene>
   `;
 };
 
 // Goes in <a-scene>:
+// vr-mode-ui="enabled: false"
 // arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
+// embedded
 
-// Goes in <a-camera>
+// Goes in <a-camera>:
+//  near="1000" far="10000"
 // rotation-reader
 // gps-camera="
 // 	positionMinAccuracy:10000;
