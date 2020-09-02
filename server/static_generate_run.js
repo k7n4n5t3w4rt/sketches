@@ -15,7 +15,7 @@ appPaths().forEach((url /*: string */) /*: Promise<any> */ =>
     hostname: "localhost",
     port: 4000,
     method: "GET",
-    path: url + "?generate=" + conf.SSR.toString(),
+    path: url + "?generate=" + conf.SSR.toString() + "&cache=true",
   })
     .then(() /*: void */ => {
       console.log(`Done: [`, url, `]`);
