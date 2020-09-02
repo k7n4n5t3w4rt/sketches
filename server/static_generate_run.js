@@ -1,4 +1,5 @@
 // @flow
+import conf from "./config.js";
 import { appPaths } from "./static_config.js";
 import requestPromise from "./request_promise.js";
 import { copyStaticFiles } from "./static_generate.js";
@@ -14,7 +15,7 @@ appPaths().forEach((url /*: string */) /*: Promise<any> */ =>
     hostname: "localhost",
     port: 4000,
     method: "GET",
-    path: url + "?generate=true",
+    path: url + "?generate=" + conf.SSR.toString(),
   })
     .then(() /*: void */ => {
       console.log(`Done: [`, url, `]`);
