@@ -53,7 +53,6 @@ const Map = (props /*: Props */) => {
         scale="200 200 200"
         gps-entity-place="latitude: -33.4938125; longitude: 151.2728018;"
       ></a-sphere>
-      <!--
       <a-camera
         near="1000"
         far="10000"
@@ -65,8 +64,7 @@ const Map = (props /*: Props */) => {
 			simulateAltitude: 85;
 			simulateLatitude: -33.5467087;
 			simulateLongitude: 151.3371129"
-	  ></a-camera>
-	  -->
+      ></a-camera>
     </a-scene>
   `;
 };

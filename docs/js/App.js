@@ -12,12 +12,13 @@ const html = htm.bind(h);
 
 /*::
 type Props = {
+	url: string
 };
 */
 const App /*: function */ = (props /*: Props */) => {
   return html`
     	<${AppProvider} >
-    		<${Router} >
+    		<${Router}  url=${props.url}>
 				<${Map} path="/" />
 				<${Lines1} path="/lines1" />
 				<${Lines2} path="/lines2" />
