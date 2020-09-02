@@ -25,6 +25,18 @@ const Map = (props /*: Props */) => {
       embedded
       arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
+      <a-camera
+        near="1000"
+        far="10000"
+        rotation-reader
+        gps-camera="
+			positionMinAccuracy:10000;
+			minDistance:0;
+			maxDistance:0;
+			simulateAltitude: 85;
+			simulateLatitude: -33.5467087;
+			simulateLongitude: 151.3371129"
+      ></a-camera>
       <a-sphere
         color="pink"
         radius="1"
@@ -53,18 +65,6 @@ const Map = (props /*: Props */) => {
         scale="200 200 200"
         gps-entity-place="latitude: -33.4938125; longitude: 151.2728018;"
       ></a-sphere>
-      <a-camera
-        near="1000"
-        far="10000"
-        rotation-reader
-        gps-camera="
-			positionMinAccuracy:10000;
-			minDistance:0;
-			maxDistance:0;
-			simulateAltitude: 85;
-			simulateLatitude: -33.5467087;
-			simulateLongitude: 151.3371129"
-      ></a-camera>
     </a-scene>
   `;
 };
