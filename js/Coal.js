@@ -25,26 +25,27 @@ const Coal = (props /*: Props */) => {
       arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
       <a-entity
-        position="0 0 0"
+        position="0 200 0"
         look-at="[gps-camera]"
-        scale="5 5 5"
+        scale="10 10 10"
         gltf-model="url(/img/coal/DBS_ex_01.gltf)"
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       ></a-entity>
       <a-camera
         near="1"
         far="70000"
+        fov="76"
         rotation-reader
         gps-camera="
 			positionMinAccuracy:10000;
 			minDistance:0;
 			maxDistance:0;
-			simulateAltitude:0;"
+			simulateAltitude:0;
+			simulateLatitude:-35.30822;
+			simulateLongitude:149.1239828;"
       ></a-camera>
     </a-scene>
   `;
 };
 
-// simulateLatitude:-35.30822;
-// simulateLongitude:149.1239828;"
 export default Coal;

@@ -35,6 +35,7 @@ const Moon = (props /*: Props */) => {
       <a-camera
         near="1"
         far="80000"
+        fov="76"
         rotation-reader
         gps-camera="
 			positionMinAccuracy:10000;
