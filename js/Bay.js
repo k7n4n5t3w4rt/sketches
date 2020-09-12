@@ -17,7 +17,7 @@ rawStyles({
 type Props = {
 };
 */
-const CoalTest = (props /*: Props */) => {
+const Bay = (props /*: Props */) => {
   useEffect(() => {
     // Events
     const mainContainer = document.getElementById("goodthing") || null;
@@ -100,4 +100,4 @@ const CoalTest = (props /*: Props */) => {
 // simulateLongitude:149.1239828;
 // Elevation: https://elvis2018-ga.fmecloud.com/fmedatastreaming/client_access/ELVIS_GetElevationAtPoint.fmw?pt_lat=-35.3082237&pt_long=149.1222036
 
-export default CoalTest;
+export default Bay;
