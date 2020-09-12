@@ -46,16 +46,23 @@ const Coal = (props /*: Props */) => {
       embedded
       arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
+      <a-assets timeout="30000">
+        <a-asset-item
+          id="gltfmodel"
+          src="/img/coal/coal.glb"
+          response-type="arraybuffer"
+        ></a-asset-item>
+      </a-assets>
       <a-entity
-        position="0 100 0"
-        scale="4000 4000 4000"
+        position="0 693 0"
+        scale="100 100 100"
         look-at="[gps-camera]"
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       >
         <a-entity
           position="0 0 0"
           scale="0 0 0"
-          gltf-model="url(/img/coal/DBS_ex_01.gltf)"
+          gltf-model="url(/img/coal/coal.glb)"
         >
         </a-entity>
       </a-entity>
@@ -67,13 +74,29 @@ const Coal = (props /*: Props */) => {
         gps-camera="
 			positionMinAccuracy:10000;
 			minDistance:0;
-			maxDistance:0;
-			simulateAltitude:0;
-			simulateLatitude:-35.30822;
-			simulateLongitude:149.1239828;"
+			maxDistance:0;"
       ></a-camera>
+      <!-- LIGHTING-->
+      <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+      <a-light
+        type="directional"
+        light="castShadow: true;
+                      shadowMapHeight: 1024;
+                      shadowMapWidth: 1024;
+                      shadowCameraLeft: -7;
+                      shadowCameraRight: 5;
+                      shadowCameraBottom: -5;
+                      shadowCameraTop: 5;"
+        id="light"
+        target="gltf-entity"
+        position="1000 1000 1000"
+      ></a-light>
     </a-scene>
   `;
 };
+// simulateAltitude:500;
+// simulateLatitude:-35.30822;
+// simulateLongitude:149.1239828;
+// Elevation: https://elvis2018-ga.fmecloud.com/fmedatastreaming/client_access/ELVIS_GetElevationAtPoint.fmw?pt_lat=-35.3082237&pt_long=149.1222036
 
 export default Coal;
