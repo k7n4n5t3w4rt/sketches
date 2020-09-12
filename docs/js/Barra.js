@@ -1,4 +1,5 @@
 // @flow
+
 import { h, render } from "../web_modules/preact.js";
 import { useState, useEffect } from "../web_modules/preact/hooks.js";
 import { createStyles, rawStyles } from "../web_modules/simplestyle-js.js";
@@ -17,7 +18,7 @@ rawStyles({
 type Props = {
 };
 */
-const Coal = (props /*: Props */) => {
+const Barra = (props /*: Props */) => {
   useEffect(() => {
     // Events
     const mainContainer = document.getElementById("goodthing") || null;
@@ -47,15 +48,15 @@ const Coal = (props /*: Props */) => {
       arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
       <a-entity
-        position="0 100 0"
-        scale="4000 4000 4000"
+        position="0 0 0"
+        scale="1000 1000 1000"
         look-at="[gps-camera]"
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       >
         <a-entity
           position="0 0 0"
           scale="0 0 0"
-          gltf-model="url(/img/coal/DBS_ex_01.gltf)"
+          gltf-model="url(/img/barra/BarramundiFish.gltf)"
         >
         </a-entity>
       </a-entity>
@@ -76,4 +77,4 @@ const Coal = (props /*: Props */) => {
   `;
 };
 
-export default Coal;
+export default Barra;
