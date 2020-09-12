@@ -9,6 +9,7 @@ import Moon from "./Moon.js";
 import Map from "./Map.js";
 import Coal from "./Coal.js";
 import Barra from "./Barra.js";
+import CoalTest from "./CoalTest.js";
 const html = htm.bind(h);
 
 /*::
@@ -26,6 +27,7 @@ const App /*: function */ = (props /*: Props */) => {
 				<${Moon} path="/moon" />
 				<${Map} path="/map" />
 				<${Coal} path="/coal" />
+				<${CoalTest} path="/coaltest" />
 				<${Barra} path="/barra" />
     		</${Router}>
     	</${AppProvider} >

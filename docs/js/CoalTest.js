@@ -17,7 +17,7 @@ rawStyles({
 type Props = {
 };
 */
-const Coal = (props /*: Props */) => {
+const CoalTest = (props /*: Props */) => {
   useEffect(() => {
     // Events
     const mainContainer = document.getElementById("goodthing") || null;
@@ -55,10 +55,10 @@ const Coal = (props /*: Props */) => {
         ></a-asset-item>
       </a-assets>
       <a-entity
-        position="0 700 0"
-        scale="100 100 100"
+        position="0 750 0"
+        scale="1000 1000 1000"
         look-at="[gps-camera]"
-        gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
+        gps-entity-place="latitude: -33.521331; longitude: 151.346974;"
       >
         <a-entity
           position="0 0 0"
@@ -100,4 +100,4 @@ const Coal = (props /*: Props */) => {
 // simulateLongitude:149.1239828;
 // Elevation: https://elvis2018-ga.fmecloud.com/fmedatastreaming/client_access/ELVIS_GetElevationAtPoint.fmw?pt_lat=-35.3082237&pt_long=149.1222036
 
-export default Coal;
+export default CoalTest;

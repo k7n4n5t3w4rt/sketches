@@ -55,7 +55,7 @@ const Coal = (props /*: Props */) => {
         ></a-asset-item>
       </a-assets>
       <a-entity
-        position="0 693 0"
+        position="0 700 0"
         scale="100 100 100"
         look-at="[gps-camera]"
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
