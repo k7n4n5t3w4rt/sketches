@@ -27,7 +27,7 @@ const App /*: function */ = (props /*: Props */) => {
 				<${Moon} path="/moon" />
 				<${Map} path="/map" />
 				<${Coal} path="/coal" />
-				<${CoalTest} path="/coaltest" />
+				<${CoalTest} path="/bay" />
 				<${Barra} path="/barra" />
     		</${Router}>
     	</${AppProvider} >
