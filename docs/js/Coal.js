@@ -44,6 +44,7 @@ const Coal = (props /*: Props */) => {
   return html`
     <a-scene
       embedded
+      vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; debugUIEnabled: false;videoTexture: true;"
     >
       <a-assets timeout="30000">
