@@ -78,20 +78,7 @@ const Bay = (props /*: Props */) => {
 			maxDistance:0;"
       ></a-camera>
       <!-- LIGHTING-->
-      <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
-      <a-light
-        type="directional"
-        light="castShadow: true;
-                      shadowMapHeight: 1024;
-                      shadowMapWidth: 1024;
-                      shadowCameraLeft: -7;
-                      shadowCameraRight: 5;
-                      shadowCameraBottom: -5;
-                      shadowCameraTop: 5;"
-        id="light"
-        target="gltf-entity"
-        position="1000 1000 1000"
-      ></a-light>
+      <a-entity light="type: ambient; intensity: 10.5;"></a-entity>
     </a-scene>
   `;
 };
