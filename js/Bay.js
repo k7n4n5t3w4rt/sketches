@@ -56,7 +56,7 @@ const Bay = (props /*: Props */) => {
       </a-assets>
       <a-entity
         position="0 750 0"
-        scale="1000 1000 1000"
+        scale="100 100 100"
         look-at="[gps-camera]"
         gps-entity-place="latitude: -33.521331; longitude: 151.346974;"
       >
