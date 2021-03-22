@@ -55,15 +55,15 @@ const Coal = (props /*: Props */) => {
         ></a-asset-item>
       </a-assets>
       <a-entity
-        position="0 700 0"
-        scale="100 100 100"
+        position="0 100 0"
+        scale="4000 4000 4000"
         look-at="[gps-camera]"
         gps-entity-place="latitude: -35.3082237; longitude: 149.1222036;"
       >
         <a-entity
           position="0 0 0"
           scale="0 0 0"
-          gltf-model="url(/img/coal/coal.glb)"
+          gltf-model="url(/img/coal/DBS_ex_01.gltf)"
         >
         </a-entity>
       </a-entity>
@@ -75,16 +75,15 @@ const Coal = (props /*: Props */) => {
         gps-camera="
 			positionMinAccuracy:10000;
 			minDistance:0;
-			maxDistance:0;"
+			maxDistance:0;
+			simulateAltitude:0;
+			simulateLatitude:-35.30822;
+			simulateLongitude:149.1239828;"
       ></a-camera>
       <!-- LIGHTING-->
       <a-entity light="type: ambient; intensity: 10.5;"></a-entity>
     </a-scene>
   `;
 };
-// simulateAltitude:500;
-// simulateLatitude:-35.30822;
-// simulateLongitude:149.1239828;"
-// Elevation: https://elvis2018-ga.fmecloud.com/fmedatastreaming/client_access/ELVIS_GetElevationAtPoint.fmw?pt_lat=-35.3082237&pt_long=149.1222036
 
 export default Coal;

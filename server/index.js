@@ -23,46 +23,38 @@ const requestHandler = (req, res) => {
   // to `preact-router` when `/js/App.js` is being
   // rendered server-side
   const [urlPath /*: string */, queryString /*: string */] = req.url.split("?");
+  // By default, assume that we're not writing static files
   let generate /*: boolean */ = false;
-  let forceCache /*: boolean */ = false;
   if (typeof queryString !== "undefined") {
     queryString.split("&").forEach((keyVal /*: string */) => {
       const [key, value] = keyVal.split("=");
       if (key === "generate" && value === "true") {
+        // We ARE writing static files
         generate = true;
-      }
-      if (key === "cache" && value === "true") {
-        forceCache = true;
       }
     });
   }
+  // If this is obviously a static asset - eg. "image.jpg"
   if (urlPath.match(/.+\..+$/) !== null) {
     serveAsStatic(req, res, finalHandler(req, res));
-  } else if (
-    cacheTtl > 0 &&
-    forceCache === false &&
-    appPaths().indexOf(urlPath) !== -1
-  ) {
-    const output = staticCache.readFromCache(urlPath, cacheTtl);
-    if (output !== false) {
-      // console.log("Cache: ", urlPath);
-      res.end(output);
-    } else {
-      const output = renderToString(urlPath, generate);
-      staticCache.writeToCache(urlPath, output);
-      // console.log("Rendered: ", urlPath);
-      res.end(output);
-    }
   } else {
     const output = renderToString(urlPath, generate);
-    if (forceCache === true) {
+    if (generate === true) {
       staticCache.writeToCache(urlPath, output);
-      // console.log("Cached: ", urlPath);
     }
-    // console.log("Rendered: ", urlPath);
     res.end(output);
   }
 };
+
+const server = http.createServer(requestHandler);
+
+server.listen(conf.PORT, (err) => {
+  if (err) {
+    return console.log("something bad happened", err);
+  }
+
+  console.log(`server is listening on ${conf.PORT}`);
+});
 
 const renderToString = (
   url /*: string */,
@@ -98,13 +90,3 @@ const renderToString = (
   );
   return renderedContent;
 };
-
-const server = http.createServer(requestHandler);
-
-server.listen(conf.PORT, (err) => {
-  if (err) {
-    return console.log("something bad happened", err);
-  }
-
-  console.log(`server is listening on ${conf.PORT}`);
-});

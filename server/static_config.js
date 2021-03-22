@@ -12,8 +12,11 @@ export const appPaths = () /*: Array<string> */ => {
   if (Array.isArray(keyValues)) {
     keyValues.forEach((currentElement /*: string */) /*: void */ => {
       const [key, value] = currentElement.split("=");
-      paths.push(value.replace(/\"/g, ""));
+      const valueNoParams = value.split("/:")[0];
+      paths.push(valueNoParams.replace(/\"/g, ""));
     });
   }
   return paths;
 };
+
+export const unCachedUrls /*: Array<string> */ = ["/people/tim"];
