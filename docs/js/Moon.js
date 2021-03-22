@@ -2,6 +2,7 @@
 import { h, render } from "../web_modules/preact.js";
 import { useState, useEffect } from "../web_modules/preact/hooks.js";
 import { createStyles, rawStyles } from "../web_modules/simplestyle-js.js";
+import screenfull from "../web_modules/screenfull.js";
 import htm from "../web_modules/htm.js";
 
 const html = htm.bind(h);
@@ -17,7 +18,28 @@ type Props = {
 };
 */
 const Moon = (props /*: Props */) => {
-  useEffect(() => {});
+  useEffect(() => {
+    // Events
+    const mainContainer = document.getElementById("goodthing") || null;
+    if (mainContainer !== null) {
+      // Modernizr doesn't have an es module npm package so it's
+      // imported with a <script> tag in `index.html`
+      // $FlowFixMe
+      if (Modernizr.hasEvent("touchend")) {
+        mainContainer.addEventListener(
+          "touchend",
+          () => {
+            // Doesn't work on iPhone ~ https://caniuse.com/#feat=fullscreen
+            // Plus we only want fullscreen on touch devices
+            screenfull.request().then(() /*: void */ => {
+              setTimeout(() /*: void */ => {}, 500);
+            });
+          },
+          { once: true },
+        );
+      }
+    }
+  });
 
   return html`
     <a-scene
@@ -29,12 +51,13 @@ const Moon = (props /*: Props */) => {
         color="silver"
         radius="1"
         position="0 1000 0"
-        scale="1500 1500 15;00"
+        scale="1500 1500 1500"
         gps-entity-place="latitude: -33.563987; longitude: 151.3408743;"
       ></a-sphere>
       <a-camera
         near="1"
         far="80000"
+        fov="76"
         rotation-reader
         gps-camera="
 			positionMinAccuracy:10000;
