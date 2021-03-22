@@ -10,16 +10,19 @@ import RequestPromiseType from "./request_promise.js";
 
 copyStaticFiles();
 
-appPaths().forEach((url /*: string */) /*: Promise<any> */ =>
-  requestPromise({
+appPaths().forEach((url /*: string */) /*: Promise<any> */ => {
+  console.log("Generating...", url + "?generate=true");
+
+  return requestPromise({
     hostname: "localhost",
     port: 4000,
     method: "GET",
-    path: url + "?generate=" + conf.SSR.toString() + "&cache=true",
+    path: url + "?generate=true",
   })
     .then(() /*: void */ => {
       console.log(`Done: [`, url, `]`);
     })
     .catch((e) => {
       console.log(e);
-    }));
+    });
+});
